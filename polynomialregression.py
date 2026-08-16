@@ -5,8 +5,8 @@ X = np.arange(1,100)
 y = X**5
 
 plt.scatter(X,y)
-# plt.plot()
-# plt.show()
+plt.plot()
+plt.show()
 
 
 csv = pd.read_csv("HousingData.csv")
@@ -34,7 +34,20 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=
 from sklearn.preprocessing import PolynomialFeatures
 pl = PolynomialFeatures(degree=2)
 X_trainpoly = pl.fit_transform(X_train)
+X_testpoly = pl.fit_transform(X_test)
 print(X_train)
 print(X_trainpoly)
+from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(X_trainpoly,y_train)
+print(lr.coef_)
+print(lr.intercept_)
+
+predictedy = lr.predict(X_testpoly)
+print(predictedy)
+from sklearn.metrics import root_mean_squared_error
+error = root_mean_squared_error(y_test,predictedy)
+print(error)
+
 
 
